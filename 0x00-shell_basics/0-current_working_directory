@@ -1,3 +1,2 @@
 #!/bin/bash
-which_directory=$(pwd)
-echo "$which_directory"
+echo "$(pwd)"
