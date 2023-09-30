@@ -1,6 +1,3 @@
 #!/bin/bash
-
 which_directory=$(pwd)
-show_dir=$(realpath "$which_directory")
-echo "$show_dir"
-
+echo "$which_directory"
