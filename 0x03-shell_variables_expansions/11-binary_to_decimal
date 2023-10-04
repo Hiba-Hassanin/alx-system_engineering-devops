@@ -1,2 +1,2 @@
 #!/bin/bash
-echo "Base 10 representation: $((2$BINARY))"
+echo $((2#$BINARY))
