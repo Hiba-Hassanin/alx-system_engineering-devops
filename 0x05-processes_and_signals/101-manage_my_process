@@ -1,19 +1,34 @@
 #!/usr/bin/env bash
-# start, stop, restart process script
-if [ "$1" == "start" ]; then
+
+# Function to start the manage_my_process script
+start_process() {
     ./manage_my_process &
     echo "$!" > /var/run/my_process.pid
     echo "manage_my_process started"
-elif [ "$1" == "stop" ]; then
+}
+
+# Function to stop the manage_my_process script
+stop_process() {
     kill "$(cat /var/run/my_process.pid)"
     rm -f /var/run/my_process.pid
     echo "manage_my_process stopped"
+}
+
+# Function to restart the manage_my_process script
+restart_process() {
+    stop_process
+    start_process
+}
+
+# Check arguments
+if [ "$1" == "start" ]; then
+    start_process
+elif [ "$1" == "stop" ]; then
+    stop_process
 elif [ "$1" == "restart" ]; then
-    kill "$(cat /var/run/my_process.pid)"
-    rm -f /var/run/my_process.pid
-    ./manage_my_process &
-    echo "$!" > /var/run/my_process.pid
-    echo "manage_my_process restarted"
+    restart_process
 else
-    echo "Usage: manage_my_process {start|stop|restart}"
+    echo "Usage: $0 {start|stop|restart}"
 fi
+
+exit 0
