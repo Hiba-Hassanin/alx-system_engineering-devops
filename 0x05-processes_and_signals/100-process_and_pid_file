@@ -1,15 +1,20 @@
 #!/usr/bin/env bash
-#!/usr/bin/env bash
+# Function to handle cleanup
+cleanup() {
+    sudo rm -f /var/run/myscript.pid
+    exit
+}
 
-# Create PID file and handle signals
-sudo bash -c 'echo $$ > /var/run/myscript.pid'
-trap "sudo rm -f /var/run/myscript.pid; exit" SIGQUIT
-trap "sudo rm -f /var/run/myscript.pid; echo I hate the kill command; exit" SIGTERM
+# Trap signals
+trap "cleanup" SIGQUIT SIGTERM
+trap "cleanup; echo I hate the kill command; exit" SIGTERM
 trap "echo Y U no love me?!" SIGINT
 
+# Create PID file
+echo $$ | sudo tee /var/run/myscript.pid > /dev/null
+
 # Loop to display "To infinity and beyond"
-while :
-do
+while true; do
     echo "To infinity and beyond"
     sleep 2
 done
