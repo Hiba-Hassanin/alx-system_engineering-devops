@@ -31,6 +31,6 @@ int main(void)
         i++;
     }
 
-    sleep(100); /* Sleep to keep the parent process alive */
+    sleep(100);
     return (0);
 }
