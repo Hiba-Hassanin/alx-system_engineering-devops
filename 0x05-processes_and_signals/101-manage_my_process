@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 # Function to start the manage_my_process script
 start_process() {
     ./manage_my_process &
