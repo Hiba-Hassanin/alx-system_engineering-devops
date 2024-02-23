@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# This script displays the PID and process name of processes
+
+# Use the pgrep command to retrieve the PIDs
+pids=$(pgrep bash)
+
+# Iterate over each PID and retrieve the process name
+for pid in $pids; do
+    process_name=$(cat "/proc/$pid/cmdline" 2>/dev/null)
+    echo "$pid $process_name"
+done
