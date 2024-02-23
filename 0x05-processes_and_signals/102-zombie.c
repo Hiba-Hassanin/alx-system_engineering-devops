@@ -1,31 +1,50 @@
 #include <stdio.h>
-#include <unistd.h>
-#include <sys/wait.h>
 #include <stdlib.h>
+#include <sys/types.h>
+#include <unistd.h>
 
 /**
- * main - zombies
+ * infinite_while - Infinite loop to keep the process running
  *
- * Description: a program that creates 5 zombie.
+ * Return: Always 0.
+ */
 
- * Return: 0 if successful
+int infinite_while(void)
+{
+    while (1)
+    {
+        sleep(1);
+    }
+    return (0);
+}
+
+/**
+ * main - Entry point
+ *
+ * Return: Always 0.
  */
 
 int main(void)
 {
-	int i;
-	pid_t pidme;
+    pid_t zombie_pid;
+    int i;
 
-	i = 0;
-	while (i < 5)
-	{
-		pidme = fork();
-		if (pidme)
-			printf("Zombie process created, PID: %i\n", pidme);
-		else
-			exit(0);
-		i++;
-	}
-	sleep(100);
-	return (0);
+    for (i = 0; i < 5; i++)
+    {
+        zombie_pid = fork();
+
+        if (zombie_pid == -1)
+        {
+            perror("fork");
+            return (1);
+        }
+        if (zombie_pid == 0)
+            exit(0); /* Child process exits immediately */
+        else
+            printf("Zombie process created, PID: %d\n", zombie_pid);
+    }
+
+    infinite_while(); /* Infinite loop to keep the parent process running */
+
+    return (0);
 }
