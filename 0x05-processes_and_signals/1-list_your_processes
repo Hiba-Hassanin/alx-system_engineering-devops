@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 # The script displays a list of the running processes.
-ps -x -u -f -a
+
+ps -auxf
