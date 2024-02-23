@@ -3,6 +3,3 @@
 
 # Header
 printf "%-10s %-5s %-5s %-10s %-10s %-10s %-10s %-5s %-10s %s\n" "USER" "PID" "%CPU" "%MEM" "VSZ" "RSS" "TTY" "STAT" "START" "TIME"
-
-# Retrieve processes information
-ps -eo user,pid,%cpu,%mem,vsz,rss,tty,stat,start,time,cmd --sort=start_time
