@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Trap SIGTERM signal and print a message
+trap 'echo "I am invincible!!!"' SIGTERM
+
+#display "To infinity and beyond" indefinitely
+to_infinity() {
+    while true; do
+        echo "To infinity and beyond"
+        sleep 2
+    done
+}
+
+# Call the function
+to_infinity
