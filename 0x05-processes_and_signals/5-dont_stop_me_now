@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# This script starts a process that runs indefinitely.
+
+./4-to_infinity_and_beyond
