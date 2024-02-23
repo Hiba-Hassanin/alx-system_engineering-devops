@@ -1,14 +1,8 @@
 #!/usr/bin/env bash
-# This script displays a list of currently running processes
+# The script displays a list of the running processes.
 
-# Define the column headers
-headers=("USER" "PID" "%CPU" "%MEM" "VSZ" "RSS" "TTY" "STAT" "START" "TIME" "COMMAND")
+# Header
+printf "%-10s %-5s %-5s %-10s %-10s %-10s %-10s %-5s %-10s %s\n" "USER" "PID" "%CPU" "%MEM" "VSZ" "RSS" "TTY" "STAT" "START" "TIME"
 
-# Print the column headers
-printf "%-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s %s\n" "${headers[@]}"
-
-# Retrieve information using the ps command with customized output format
-ps_output=$(ps -eo user,pid,%cpu,%mem,vsz,rss,tty,stat,start,time,comm)
-
-# Print the process information
-printf "%s\n" "${ps_output[@]}"
+# Retrieve processes information
+ps -eo user,pid,%cpu,%mem,vsz,rss,tty,stat,start,time,cmd --sort=start_time
