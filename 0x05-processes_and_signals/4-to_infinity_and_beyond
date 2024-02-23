@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#Script displays"To infinity and beyond"with 2-sec delay between iterations
+#Script displays "To infinity and beyond" indefinitely.
 
 while true; do
     echo "To infinity and beyond"
