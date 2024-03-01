@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Description: Displays all active IPv4 IPs on the machine
+
+# Use ifconfig to get all active IPv4 IPs and filter out the loopback address
+ifconfig | grep -oE 'inet (addr:)?([0-9]*\.){3}[0-9]*' | awk '{print $2}' | grep -v '127.0.0.1'

@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Description: Configures localhost and facebook.com to resolve to specified IP addresses
+
+# Check if running on Docker
+if [ ! -f /.dockerenv ]; then
+    echo "This script is intended to be run inside a Docker container."
+    exit 1
+fi
+
+# Modify /etc/hosts to configure localhost and facebook.com
+sed -i 's/^127.0.0.1\s*localhost$/127.0.0.2 localhost/' /etc/hosts
+sed -i 's/^8.8.8.8\s*facebook.com$/157.240.11.35 facebook.com/' /etc/hosts
+
+echo "Host configurations updated. Restart your networking service for changes to take effect."
