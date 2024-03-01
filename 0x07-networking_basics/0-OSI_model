@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Description: What is the OSI model?
+echo "2"
+# Description: How is the OSI model organized?
+echo "2"

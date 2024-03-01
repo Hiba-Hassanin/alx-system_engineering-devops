@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Description: Displays listening TCP and UDP ports along with the PID and program name
+
+# Display listening TCP ports
+echo "Active Internet connections (only servers)"
+echo "Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name"
+netstat -tuln | awk '$1 == "tcp" {print $1"\t"$2"\t"$3"\t"$4"\t\t"$7}' | sed 's/://g' | awk '{print $1"\t"$2"\t"$3"\t"$4"\t"$5"\t\t"$NF}'
+echo
+
+# Display listening UDP ports
+netstat -uln | awk '$1 == "udp" {print $1"\t"$2"\t"$3"\t"$4"\t\t"$6}' | sed 's/://g' | awk '{print $1"\t"$2"\t"$3"\t"$4"\t"$5"\t\t"$NF}'
+echo
