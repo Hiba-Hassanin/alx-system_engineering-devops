@@ -1,4 +1,10 @@
 # Puppet manifest to install puppet
-exec { 'puppet-lint':
-  command => '/usr/bin/apt-get -y install puppet-lint -v 2.5.0',
+package { 'python3-pip':
+  ensure => installed,
+}
+
+package { 'python3-flask':
+  ensure => '2.1.0',
+  provider => 'pip3',
+  require => Package['python3-pip'],
 }
