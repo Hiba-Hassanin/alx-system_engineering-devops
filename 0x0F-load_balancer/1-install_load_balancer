@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# This script installs and configures HAproxy to distribute traffic to web-01 and web-02 using round-robin algorithm
+
+# Install HAproxy
+sudo apt-get update
+sudo apt-get install -y haproxy
+
+# Configure HAproxy
+sudo sed -i '/^frontend main$/ a \    default_backend servers' /etc/haproxy/haproxy.cfg
+sudo sed -i '/^backend servers$/ a \        server web-01 [STUDENT_ID]-web-01:80 check' /etc/haproxy/haproxy.cfg
+sudo sed -i '/^backend servers$/ a \        server web-02 [STUDENT_ID]-web-02:80 check' /etc/haproxy/haproxy.cfg
+
+# Restart HAproxy
+sudo service haproxy restart
