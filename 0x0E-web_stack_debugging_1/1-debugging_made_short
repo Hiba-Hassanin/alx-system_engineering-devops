@@ -2,4 +2,6 @@
 # Configures an Nginx server to listen on port 80.
 
 sed -i '/listen 80 default_server;/s/# *//' /etc/nginx/sites-available/default
-service nginx start
+sed -i '/listen \[::\]:80 default_server;/s/# *//' /etc/nginx/sites-available/default
+service nginx stop >/dev/null 2>&1
+service nginx start >/dev/null 2>&1
