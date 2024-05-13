@@ -1,0 +1,4 @@
+#!/bin/bash
+# Run `whoami` command as the specified user using `sudo`.
+
+sudo -u "$1" whoami
