@@ -1,9 +1,12 @@
 #!/usr/bin/python3
-""" Recursive function that queries the Reddit API for hot articles """
+""" Recursive function that
+queries the Reddit API for
+hot articles """
 import requests
 
 def recurse(subreddit, hot_list=[], after=None):
-    """ Returns a list of titles of all hot posts in a subreddit """
+    """ Returns a list of titles of
+    all hot posts in a subreddit """
     headers = {'User-Agent': 'xica369'}
     url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
     parameters = {'limit': 100, 'after': after}
