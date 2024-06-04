@@ -7,37 +7,19 @@ is not valid, it prints 'None'.
 """
 import requests
 
-def top_ten(subreddit):
-    """
-    Queries the Reddit API and prints
-    the titles of the first 10 hot
-    posts for the given subreddit.
+import requests
 
-    Args:
-        subreddit (str): The name of
-               the subreddit to search.
-    """
-    url = f"https://api.reddit.com/r/{subreddit}/hot"
+
+def number_of_subscribers(subreddit):
+    url = ("https://api.reddit.com/r/{}/about".format(subreddit))
     headers = {'User-Agent': 'CustomClient/1.0'}
+    response = requests.get(url, headers=headers, allow_redirects=False)
 
-    try:
-        response = requests.get(url, headers=headers, allow_redirects=False)
+    if response.status_code != 200:
+        return (0)
+    response = response.json()
+    if 'data' in response:
+        return (response.get('data').get('subscribers'))
 
-        """
-        Check if the request was successful. 
-        If not, print 'None' and return.
-        """
-        if response.status_code != 200:
-            print("None")
-            return
-
-        """
-        Extract the titles of the first 10 
-        hot posts and print them.
-        """
-        data = response.json().get("data", {}).get("children", [])
-        for post in data[:10]:
-            print(post["data"]["title"])
-
-    except requests.exceptions.RequestException as e:
-        print("None")
+    else:
+        return (0)
