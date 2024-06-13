@@ -14,4 +14,3 @@ exec { 'restart_nginx':
   refreshonly => true,  # Only restart if the previous exec ran
   subscribe   => Exec['increase_nginx_ulimit'],  # Ensure this runs after the previous exec
 }
-
