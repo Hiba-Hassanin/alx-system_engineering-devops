@@ -1,16 +1,17 @@
-# This Puppet manifest increases
-# the open files limit for the holberton user.
+# Increases the amount of traffic an Nginx server
+# can handle by increasing the ULIMIT.
 
-# Ensure the limits.conf file is updated to
-# increase the open files limit for holberton user
-exec { 'increase_open_files_limit':
-  command => '/usr/bin/env sed -i "/holberton/ s/^.*$/holberton soft nofile 4096\\nholberton hard nofile 8192/" /etc/security/limits.conf',
-  onlyif  => '/usr/bin/env grep -q "holberton" /etc/security/limits.conf',
-}
+# Increase the ULIMIT in the default Nginx configuration file
+exec { 'fix--for-nginx':
+  command => 'sed -i "s/15/4096/" /etc/default/nginx',
+  path    => ['/usr/local/bin', '/bin'],
+  onlyif  => 'grep -q "15" /etc/default/nginx',  # Only run if "15" is found in the file
+} ->
 
-# Ensure the common-session file is updated to include pam_limits.so
-file_line { 'add pam_limits to common-session':
-  path  => '/etc/pam.d/common-session',
-  line  => 'session required pam_limits.so',
-  match => '^session\s+required\s+pam_limits.so',
+# Restart Nginx to apply the new ULIMIT
+exec { 'nginx-restart':
+  command => 'service nginx restart',
+  path    => ['/usr/sbin', '/usr/bin', '/sbin', '/bin'],
+  refreshonly => true,  # Only restart if the previous exec ran
+  subscribe   => Exec['fix--for-nginx'],  # Ensure this runs after the previous exec
 }
