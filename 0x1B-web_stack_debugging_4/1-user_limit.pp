@@ -1,9 +1,11 @@
-# This Puppet manifest increases the open files limit for the holberton user.
+# This Puppet manifest increases
+# the open files limit for the holberton user.
 
-# Ensure the limits.conf file is updated with the new limits
-file { '/etc/security/limits.conf':
-  ensure  => present,
-  content => template('user_limit/limits.conf.erb'),
+# Ensure the limits.conf file is updated to
+# increase the open files limit for holberton user
+exec { 'increase_open_files_limit':
+  command => '/usr/bin/env sed -i "/holberton/ s/^.*$/holberton soft nofile 4096\\nholberton hard nofile 8192/" /etc/security/limits.conf',
+  onlyif  => '/usr/bin/env grep -q "holberton" /etc/security/limits.conf',
 }
 
 # Ensure the common-session file is updated to include pam_limits.so
